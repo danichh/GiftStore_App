@@ -1,3 +1,8 @@
+// --------------------------------------------------------------------
+// Assignment 2
+// Written by: Danich Hang , 1951307
+// For Application Development 2 (Mobile) - Winter 2022
+// --------------------------------------------------------------------
 package com.example.assignment02;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,13 +26,18 @@ public class Cart extends AppCompatActivity {
     private ShoppingCart cart;
     private RecyclerView recyclerView;
     private MaterialButton proceedButton;
+    private TextView price;
     private TextView totalPrice;
     private TextView cartEmpty;
     private CartItemAdapter cartItemsAdapter;
     double totalAmount = 0;
 
+    /**
+     *  method to initial the components
+     */
     private void initComponent(){
         cart = ShoppingCart.getInstance();
+        price = findViewById(R.id.price);
         recyclerView = findViewById(R.id.recyclerView);
         totalPrice = findViewById(R.id.total_price);
         proceedButton = findViewById(R.id.submitButton);
@@ -39,6 +49,7 @@ public class Cart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         initComponent();
+        // when the proceedButton is click, send to checkout page
         proceedButton.setOnClickListener(view -> {
             Intent intent = new Intent(this, Checkout.class);
             intent.putExtra("totalAmount", totalAmount);
@@ -47,6 +58,9 @@ public class Cart extends AppCompatActivity {
         displayItem();
     }
 
+    /**
+     * call the recyclerView to inflate the products in carts
+     */
     private void displayItem(){
         List<Product> products = cart.getproducts();
 
@@ -55,6 +69,7 @@ public class Cart extends AppCompatActivity {
             cartEmpty.setVisibility(View.VISIBLE);
             proceedButton.setEnabled(false);
         }
+
         //add all the price together
         for (Product current :
                 products) {
@@ -62,6 +77,7 @@ public class Cart extends AppCompatActivity {
         }
         totalPrice.setText(String.format("$ %.2f", totalAmount));
 
+        // if the delete button is click, totalamount - price
         cartItemsAdapter = new CartItemAdapter(this, products, getApplicationContext().getTheme());
         cartItemsAdapter.setOnItemDeleteClickListener((view, product, pos) -> {
             totalAmount -= product.getPrice();

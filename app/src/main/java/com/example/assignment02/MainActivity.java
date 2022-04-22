@@ -1,3 +1,8 @@
+// --------------------------------------------------------------------
+// Assignment 2
+// Written by: Danich Hang , 1951307
+// For Application Development 2 (Mobile) - Winter 2022
+// --------------------------------------------------------------------
 package com.example.assignment02;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,9 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * add a different menu then the original
-     * @param menu
-     * @return
+     * add a specific menu to the menu bar
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * generate the viewPager
+     * @param viewPager
+     */
     private void setupViewPager(ViewPager viewPager) {
         SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(ProductFragment.newInstance(Util.GIFT_CLASS), "Gifts");
@@ -56,8 +63,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     *
+     * @param item is the menu item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // if the cart buttom(menu item) is click send to cart
         if (item.getItemId() == R.id.action_cart) {
             Intent intent = new Intent(this, Cart.class);
             startActivity(intent);

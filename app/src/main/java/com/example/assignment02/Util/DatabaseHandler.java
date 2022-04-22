@@ -1,3 +1,8 @@
+// --------------------------------------------------------------------
+// Assignment 2
+// Written by: Danich Hang , 1951307
+// For Application Development 2 (Mobile) - Winter 2022
+// --------------------------------------------------------------------
 package com.example.assignment02.Util;
 
 import android.annotation.SuppressLint;
@@ -54,11 +59,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
     //=====================================CRUD========================================//
-    private List<Product>  addCursorInList  (List<Product> products, Cursor cursor){
 
-        return products;
-    }
-
+    /**
+     *  get the list of Product base on it type
+     * @param type is the given type
+     * @return arrayList of the given type products
+     */
     public List<Product> getProductsByType(String type){
         SQLiteDatabase db = this.getReadableDatabase();
         List<Product> products = new ArrayList<>();
@@ -87,6 +93,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * get All the favorite products
+     * @return arraylist of the favorite products
+     */
     public List<Product> getFavorite(){
         SQLiteDatabase db = this.getReadableDatabase();
         List<Product> products = new ArrayList<>();
@@ -114,6 +124,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return products;
     }
 
+    /**
+     * Update the favorite columne
+     * @param product_id is the id of the needed update product
+     * @param fav is the value 1= fav 0= no fav
+     * @return
+     */
     public int updateFavorite(int product_id, int fav){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

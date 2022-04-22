@@ -1,3 +1,8 @@
+// --------------------------------------------------------------------
+// Assignment 2
+// Written by: Danich Hang , 1951307
+// For Application Development 2 (Mobile) - Winter 2022
+// --------------------------------------------------------------------
 package com.example.assignment02.adapter;
 
 import android.content.Context;
@@ -38,7 +43,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         shoppingCart = ShoppingCart.getInstance();
     }
 
-
+    // method to set the moreButton is click
     public void setOnMoreButtonClickListener(final OnMoreButtonClickListener onMoreButtonClickListener) {
         this.onMoreButtonClickListener = onMoreButtonClickListener;
     }
@@ -57,9 +62,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.price.setText(String.format("$ %.2f", product.getPrice()));
         holder.image.setImageDrawable(context.getResources().getDrawable(product.getImage(), theme));
 
+        // change the image of the like button, 1 is full , 0 is empty
         holder.favorite.setImageResource(product.getFavorite() > 0 ? R.drawable.ic_baseline_select_favorite_24 : R.drawable.ic_baseline_favorite_border_24 );
-        holder.favorite.setOnClickListener(view -> {
-            if(product.getFavorite() == 0){
+        holder.favorite.setOnClickListener(view -> { // when the favorite is click
+            if(product.getFavorite() == 0){ // change the value to the opposites value ex: fav = 0; fav = 1
                 db.updateFavorite(product.getId(), 1);
                 product.setFavorite(1);
             } else if (product.getFavorite() == 1){
@@ -79,6 +85,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         });
     }
 
+    /**
+     *
+     * When the more buttom is click, inflate the product menu and set the menu clicked
+     */
     private void onMoreButtonClick(final View view, final Product p) {
         PopupMenu popupMenu = new PopupMenu(context, view);
         popupMenu.setOnMenuItemClickListener(item -> {

@@ -1,3 +1,8 @@
+// --------------------------------------------------------------------
+// Assignment 2
+// Written by: Danich Hang , 1951307
+// For Application Development 2 (Mobile) - Winter 2022
+// --------------------------------------------------------------------
 package com.example.assignment02.adapter;
 
 import androidx.annotation.NonNull;
@@ -20,17 +25,32 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
+    /**
+     * add the fragment and the titre to the arrayLists
+     * @param fragment
+     * @param titre
+     */
     public void addFragment(Fragment fragment, String titre){
         fragments.add(fragment);
         titres.add(titre);
     }
 
+    /**
+     * retrive the Fragment base on  the position
+     * @param position is the given position
+     * @return the Fragment
+     */
     @NonNull
     @Override
     public Fragment getItem(int position) {
         return fragments.get(position);
     }
 
+    /**
+     * retrive the titre base on  the position
+     * @param position is the given position
+     * @return the titre
+     */
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {

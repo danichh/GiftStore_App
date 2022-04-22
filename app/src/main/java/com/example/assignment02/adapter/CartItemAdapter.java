@@ -1,3 +1,8 @@
+// --------------------------------------------------------------------
+// Assignment 2
+// Written by: Danich Hang , 1951307
+// For Application Development 2 (Mobile) - Winter 2022
+// --------------------------------------------------------------------
 package com.example.assignment02.adapter;
 
 import android.content.Context;
@@ -26,6 +31,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
     private Context context;
     private OnItemClickListener onItemClickListener;
 
+    // item is click add the information needed
     public void setOnItemDeleteClickListener(final OnItemClickListener mItemClickListener) {
         this.onItemClickListener = mItemClickListener;
     }
@@ -36,8 +42,6 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
         this.theme = theme;
         cart = ShoppingCart.getInstance();
     }
-
-
 
     @NonNull
     @Override
@@ -52,21 +56,19 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
         holder.title.setText(product.getTitle());
         holder.price.setText(String.format("$ %.2f", product.getPrice()));
         holder.image.setImageDrawable(context.getResources().getDrawable(product.getImage(), theme));
+        // when click. remove from the cart, and set item is clicked
         holder.delete_button.setOnClickListener(view -> {
             onItemClickListener.onItemClick(view, products.get(position), position);
             cart.removeFromCart(product);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, products.size());
         });
-
-
     }
 
     @Override
     public int getItemCount() {
         return products.size();
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView image;
@@ -78,7 +80,7 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.ViewHo
             super(itemView);
             image = itemView.findViewById(R.id.image);
             title = itemView.findViewById(R.id.title);
-            price = itemView.findViewById(R.id.price);
+            price = itemView.findViewById(R.id.Cprice);
             delete_button = itemView.findViewById(R.id.delete_button);
         }
     }

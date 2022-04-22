@@ -1,3 +1,8 @@
+// --------------------------------------------------------------------
+// Assignment 2
+// Written by: Danich Hang , 1951307
+// For Application Development 2 (Mobile) - Winter 2022
+// --------------------------------------------------------------------
 package com.example.assignment02;
 
 import android.content.Intent;
@@ -78,6 +83,7 @@ public class ProductFragment extends Fragment {
         ProductAdapter productAdapter = new ProductAdapter(getActivity().getApplicationContext().getTheme(), getActivity(), products);
         recyclerView.setAdapter(productAdapter);
 
+        // when the share is click, send to the Action_send intent
         productAdapter.setOnMoreButtonClickListener((viewClicked, obj, item)->{
             if(item.getItemId() == R.id.share_btn){
                 Intent sendIntent = new Intent();
@@ -90,6 +96,10 @@ public class ProductFragment extends Fragment {
             }
         });
 
+        /**
+         * when swipe to refresh
+         * reload the products
+         */
         swipeRefreshLayout.setOnRefreshListener(() -> {
             List<Product> items = getProducts(type);
             productAdapter.setItems(items);
